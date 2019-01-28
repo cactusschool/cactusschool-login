@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "app_user")
+@Table(name = "user")
 public class User {
 
 	@Id
@@ -49,7 +49,7 @@ public class User {
 		inverseJoinColumns = @JoinColumn (name="role_id", referencedColumnName="id" )
 	)
 	
-	private List<Role> roles;
+	private List<RoleMaster> roles;
 
 	public Long getId() {
 		return id;
@@ -91,11 +91,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public List<Role> getRoles() {
+	public List<RoleMaster> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(List<RoleMaster> roles) {
 		this.roles = roles;
 	}
 }

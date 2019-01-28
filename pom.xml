@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.1.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ashish.jwt.token</groupId>
 	<artifactId>login-jwt</artifactId>
@@ -25,17 +26,18 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<!-- Mandatory dependency END -->
-		
+
 		<!-- Database Dependency START -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
+
+		<!-- dependency> <groupId>com.h2database</groupId> <artifactId>h2</artifactId> 
+			<scope>runtime</scope> </dependency> https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<!-- <scope>runtime</scope> -->
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		<!-- Database Dependency END -->
 
@@ -51,7 +53,7 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- Debugging and testing dependencies END -->
-		
+
 		<!-- Spring security and JWT token dependency START -->
 		<dependency>
 			<groupId>org.springframework.security.oauth</groupId>
@@ -62,15 +64,15 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-jwt</artifactId>
-			<version>1.0.9.RELEASE</version>
+			<version>1.0.10.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<!-- Spring security and JWT token dependency END -->
-		
+
 		<!-- Swagger Dependency START -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -91,8 +93,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!-- Below code creates 2 jars, "jwt-token-service-1.0-exec.jar" 
-					big in size, "jwt-token-service-1.0.jar.jar" small in size (we can use this as dependency with other applications -->
+				<!-- Below code creates 2 jars, "jwt-token-service-1.0-exec.jar" big 
+					in size, "jwt-token-service-1.0.jar.jar" small in size (we can use this as 
+					dependency with other applications -->
 				<executions>
 					<execution>
 						<goals>
@@ -105,8 +108,9 @@
 						</configuration>
 					</execution>
 				</executions>
-				<!-- Above code creates 2 jars, "jwt-token-service-1.0-exec.jar" 
-					big in size, "jwt-token-service-1.0.jar.jar" small in size (we can use this as dependency with other applications -->
+				<!-- Above code creates 2 jars, "jwt-token-service-1.0-exec.jar" big 
+					in size, "jwt-token-service-1.0.jar.jar" small in size (we can use this as 
+					dependency with other applications -->
 			</plugin>
 		</plugins>
 	</build>
