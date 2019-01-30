@@ -8,5 +8,5 @@ import com.ashish.jwt.token.db.model.User;
 @Component
 public interface AppUserRepository extends CrudRepository <User, Long>{
 
-	User findByUsername(String username);
+	User findByUserName(String username);
 }

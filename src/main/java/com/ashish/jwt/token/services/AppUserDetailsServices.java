@@ -24,18 +24,18 @@ public class AppUserDetailsServices implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		User user = userRepo.findByUsername(username);
+		User user = userRepo.findByUserName(username);
 		
 		if(user == null) {
 			throw new UsernameNotFoundException(String.format("The username %username doesn't exist.", username));
 		}
 		
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		user.getRoles().forEach(role -> {
+		/*user.getRoles().forEach(role -> {
 			authorities.add(new SimpleGrantedAuthority(role.getRolename()));
-		});
+		});*/
 		
-		UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+		UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), authorities);
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		for(int i = 0; i < 10; i++) {

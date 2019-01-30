@@ -8,5 +8,5 @@ import com.ashish.jwt.token.db.model.RoleMaster;
 @Component
 public interface AppRoleRepository extends CrudRepository <RoleMaster, Long>{
 
-	RoleMaster findByRolename(String rolename);
+	RoleMaster findByRoleName(String rolename);
 }
