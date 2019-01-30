@@ -1,16 +1,8 @@
 package com.ashish.jwt.token.db.model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
-import org.hibernate.annotations.Where;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.annotation.LastModifiedDate;
-
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -18,78 +10,70 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="address")
 @NamedQuery(name="Address.findAll", query="SELECT a FROM Address a")
-@Where(clause="delete_ind is NULL or delete_ind='N'")
 public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="address_id")
+	@Column(name="address_id", unique=true, nullable=false)
 	private int addressId;
 
-	@Column(name="address_line1")
+	@Column(name="address_line1", nullable=false, length=75)
 	private String addressLine1;
 
-	@Column(name="address_line2")
+	@Column(name="address_line2", length=75)
 	private String addressLine2;
 
-	@Column(name="address_line3")
+	@Column(name="address_line3", length=75)
 	private String addressLine3;
 
-	@Column(name="address_name")
+	@Column(name="address_name", nullable=false, length=100)
 	private String addressName;
 
-	@Column(name="address_type")
-	private String addressType;
+	@Column(length=100)
+	private String city;
 
-	@Column(name="create_date", updatable=false)
+	@Column(name="country_code", length=4)
+	private String countryCode;
+
+	@Column(name="create_date")
 	private Timestamp createDate;
 
-	@Column(name="create_user")
+	@Column(name="create_user", length=100)
 	private String createUser;
 
-	@Column(name="email_id1")
-	private String emailId1;
-
-	@Column(name="email_id2")
-	private String emailId2;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="end_date")
-	private Date endDate;
-
-	@Column(name="phone_no1")
-	private String phoneNo1;
-
-	@Column(name="phone_no2")
-	private String phoneNo2;
-
-	private String pin;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="start_date")
-	private Date startDate;
-
-	@Column(name="update_date", insertable=false, updatable=false)
-	private Timestamp updateDate;
-
-	@Column(name="update_user")
-	private String updateUser;
-	
-	@Column(name="delete_ind")
+	@Column(name="delete_ind", length=2)
 	private String deleteInd;
 
-	private String website;
+	@Column(name="delete_reason", length=100)
+	private String deleteReason;
 
-	//bi-directional many-to-one association to DistrictMaster
+	@Column(name="dist_code", length=4)
+	private String distCode;
+
+	@Column(name="pin_code", length=10)
+	private String pinCode;
+
+	@Column(name="state_code", length=4)
+	private String stateCode;
+
+	@Column(name="update_date")
+	private Timestamp updateDate;
+
+	@Column(name="update_user", length=100)
+	private String updateUser;
+
+	//bi-directional many-to-one association to SchoolMaster
 	@ManyToOne
-	@JoinColumn(name="dist_id")
-	private DistrictMaster districtMaster;
+	@JoinColumn(name="school_id", nullable=false)
+	private SchoolMaster schoolMaster;
 
-	//bi-directional many-to-one association to SchoolAddress
-	@OneToMany(mappedBy="address", fetch = FetchType.LAZY, cascade={CascadeType.REMOVE,CascadeType.MERGE})
-	private List<SchoolAddress> schoolAddresses;
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="user_id", nullable=false)
+	private User user;
 
 	public Address() {
 	}
@@ -134,12 +118,20 @@ public class Address implements Serializable {
 		this.addressName = addressName;
 	}
 
-	public String getAddressType() {
-		return this.addressType;
+	public String getCity() {
+		return this.city;
 	}
 
-	public void setAddressType(String addressType) {
-		this.addressType = addressType;
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountryCode() {
+		return this.countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 
 	public Timestamp getCreateDate() {
@@ -158,60 +150,44 @@ public class Address implements Serializable {
 		this.createUser = createUser;
 	}
 
-	public String getEmailId1() {
-		return this.emailId1;
+	public String getDeleteInd() {
+		return this.deleteInd;
 	}
 
-	public void setEmailId1(String emailId1) {
-		this.emailId1 = emailId1;
+	public void setDeleteInd(String deleteInd) {
+		this.deleteInd = deleteInd;
 	}
 
-	public String getEmailId2() {
-		return this.emailId2;
+	public String getDeleteReason() {
+		return this.deleteReason;
 	}
 
-	public void setEmailId2(String emailId2) {
-		this.emailId2 = emailId2;
+	public void setDeleteReason(String deleteReason) {
+		this.deleteReason = deleteReason;
 	}
 
-	public Date getEndDate() {
-		return this.endDate;
+	public String getDistCode() {
+		return this.distCode;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setDistCode(String distCode) {
+		this.distCode = distCode;
 	}
 
-	public String getPhoneNo1() {
-		return this.phoneNo1;
+	public String getPinCode() {
+		return this.pinCode;
 	}
 
-	public void setPhoneNo1(String phoneNo1) {
-		this.phoneNo1 = phoneNo1;
+	public void setPinCode(String pinCode) {
+		this.pinCode = pinCode;
 	}
 
-	public String getPhoneNo2() {
-		return this.phoneNo2;
+	public String getStateCode() {
+		return this.stateCode;
 	}
 
-	public void setPhoneNo2(String phoneNo2) {
-		this.phoneNo2 = phoneNo2;
-	}
-
-	public String getPin() {
-		return this.pin;
-	}
-
-	public void setPin(String pin) {
-		this.pin = pin;
-	}
-
-	public Date getStartDate() {
-		return this.startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
 	}
 
 	public Timestamp getUpdateDate() {
@@ -230,85 +206,20 @@ public class Address implements Serializable {
 		this.updateUser = updateUser;
 	}
 
-	public String getWebsite() {
-		return this.website;
+	public SchoolMaster getSchoolMaster() {
+		return this.schoolMaster;
 	}
 
-	public void setWebsite(String website) {
-		this.website = website;
+	public void setSchoolMaster(SchoolMaster schoolMaster) {
+		this.schoolMaster = schoolMaster;
 	}
 
-	public DistrictMaster getDistrictMaster() {
-		return this.districtMaster;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setDistrictMaster(DistrictMaster districtMaster) {
-		this.districtMaster = districtMaster;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public List<SchoolAddress> getSchoolAddresses() {
-		return this.schoolAddresses;
-	}
-
-	public void setSchoolAddresses(List<SchoolAddress> schoolAddresses) {
-		this.schoolAddresses = schoolAddresses;
-	}
-
-	public SchoolAddress addSchoolAddress(SchoolAddress schoolAddress) {
-		getSchoolAddresses().add(schoolAddress);
-		schoolAddress.setAddress(this);
-
-		return schoolAddress;
-	}
-
-	public SchoolAddress removeSchoolAddress(SchoolAddress schoolAddress) {
-		getSchoolAddresses().remove(schoolAddress);
-		schoolAddress.setAddress(null);
-
-		return schoolAddress;
-	}
-
-	@Override
-	public String toString() {
-		return "Address [addressId=" + addressId + "]";
-	}
-
-	public String getDeleteInd() {
-		return deleteInd;
-	}
-
-	public void setDeleteInd(String deleteInd) {
-		this.deleteInd = deleteInd;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + addressId;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Address other = (Address) obj;
-		if (addressId != other.addressId)
-			return false;
-		return true;
-	}
-	
-	@PreUpdate
-	@PrePersist
-	public void updateTimeStamps() {
-	    updateDate = new Timestamp(System.currentTimeMillis());
-	    if (createDate == null) {
-	    	createDate = new Timestamp(System.currentTimeMillis());
-	    }
-	}
 }

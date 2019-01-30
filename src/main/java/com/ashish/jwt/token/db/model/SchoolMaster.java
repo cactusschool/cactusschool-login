@@ -1,27 +1,9 @@
 package com.ashish.jwt.token.db.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Where;
 
 
 /**
@@ -30,120 +12,97 @@ import org.hibernate.annotations.Where;
  */
 @Entity
 @Table(name="school_master")
-@NamedQuery(name="SchoolMaster.findAll", query="SELECT b FROM SchoolMaster b")
-@Where(clause="delete_ind is NULL or delete_ind='N'")
+@NamedQuery(name="SchoolMaster.findAll", query="SELECT s FROM SchoolMaster s")
 public class SchoolMaster implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="school_id")
+	@Column(name="school_id", unique=true, nullable=false)
 	private int schoolId;
 
-	@Column(name="school_name")
-	private String schoolName;
+	@Column(name="address_id", nullable=false)
+	private int addressId;
 
-	@Column(name="branch_name")
-	private String branchName;
-
-	@Column(name="create_date", updatable=false)
-	private Timestamp createDate;
-
-	@Column(name="create_user")
-	private String createUser;
-
-	private String email1;
-
-	private String email2;
-	
-	@Column(name="gmail_id")
-	private String gmailId;
-	
-	@Column(name="gmail_password")
-	private String gmailPassword;
-	
-	@Column(name="sms_sender_id")
-	private String smsSenderId;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="end_date")
-	private Date endDate;
-
-	@Column(name="school_code")
-	private String schoolCode;
-
-	@Column(name="context_root")
+	@Column(name="context_root", nullable=false, length=50)
 	private String contextRoot;
 
-	@Column(name="db_name")
+	@Column(name="contract_id", nullable=false)
+	private int contractId;
+
+	@Column(name="create_date", nullable=false)
+	private Timestamp createDate;
+
+	@Column(name="create_user", nullable=false, length=100)
+	private String createUser;
+
+	@Column(name="db_name", nullable=false, length=50)
 	private String dbName;
-	
-	@Column(name="parent_id")
-	private int parentId;
 
-	private String phone1;
+	@Column(name="delete_ind", nullable=false, length=2)
+	private String deleteInd;
 
-	private String phone2;
+	@Column(name="delete_reason", nullable=false, length=100)
+	private String deleteReason;
 
-	private String remarks;
+	@Column(name="school_code", nullable=false, length=50)
+	private String schoolCode;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="start_date")
-	private Date startDate;
+	@Column(name="school_group_name", length=150)
+	private String schoolGroupName;
 
-	@Column(name="update_date", insertable=false, updatable=true)
+	@Column(name="school_name", nullable=false, length=150)
+	private String schoolName;
+
+	@Column(name="school_parent_id", nullable=false)
+	private int schoolParentId;
+
+	@Column(name="sms_sender_id", nullable=false, length=50)
+	private String smsSenderId;
+
+	@Column(name="update_date", nullable=false)
 	private Timestamp updateDate;
 
-	@Column(name="update_user")
+	@Column(name="update_user", nullable=false, length=100)
 	private String updateUser;
 
-	@Column(name="delete_ind")
-	private String deleteInd;
-	
-	@Column(name="delete_reason")
-	private String deleteReason;
-	
-	/*
-	 * //bi-directional many-to-one association to SchoolAddress
-	 * 
-	 * @OneToMany(mappedBy="SchoolMaster", fetch = FetchType.LAZY,
-	 * cascade={CascadeType.REMOVE,CascadeType.MERGE,CascadeType.REFRESH})
-	 * 
-	 * @Where(clause = "delete_ind is null") private List<SchoolAddress>
-	 * schoolAddresses;
-	 */
+	//bi-directional many-to-one association to Address
+	@OneToMany(mappedBy="schoolMaster")
+	private List<Address> addresses;
 
-	/*
-	 * //bi-directional many-to-one association to User
-	 * 
-	 * @OneToMany(mappedBy="SchoolMaster", fetch = FetchType.LAZY,
-	 * cascade={CascadeType.REMOVE,CascadeType.MERGE,CascadeType.REFRESH}) private
-	 * List<User> users;
-	 * 
-	 * //bi-directional many-to-one association to SchoolLicenseDtl
-	 * 
-	 * @OneToMany(mappedBy="SchoolMaster", fetch = FetchType.LAZY,
-	 * cascade={CascadeType.REMOVE,CascadeType.MERGE,CascadeType.REFRESH}) private
-	 * List<SchoolLicenseDtl> schoolLicenseDtls;
-	 */
-		
 	public SchoolMaster() {
 	}
 
-	public String getDeleteInd() {
-		return deleteInd;
-	}
-	public void setDeleteInd(String deleteInd) {
-		this.deleteInd = deleteInd;
-	}
-	
-
-	public String getBranchName() {
-		return this.branchName;
+	public int getSchoolId() {
+		return this.schoolId;
 	}
 
-	public void setBranchName(String branchName) {
-		this.branchName = branchName;
+	public void setSchoolId(int schoolId) {
+		this.schoolId = schoolId;
+	}
+
+	public int getAddressId() {
+		return this.addressId;
+	}
+
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
+	}
+
+	public String getContextRoot() {
+		return this.contextRoot;
+	}
+
+	public void setContextRoot(String contextRoot) {
+		this.contextRoot = contextRoot;
+	}
+
+	public int getContractId() {
+		return this.contractId;
+	}
+
+	public void setContractId(int contractId) {
+		this.contractId = contractId;
 	}
 
 	public Timestamp getCreateDate() {
@@ -162,69 +121,68 @@ public class SchoolMaster implements Serializable {
 		this.createUser = createUser;
 	}
 
-	public String getEmail1() {
-		return this.email1;
+	public String getDbName() {
+		return this.dbName;
 	}
 
-	public void setEmail1(String email1) {
-		this.email1 = email1;
+	public void setDbName(String dbName) {
+		this.dbName = dbName;
 	}
 
-	public String getEmail2() {
-		return this.email2;
+	public String getDeleteInd() {
+		return this.deleteInd;
 	}
 
-	public void setEmail2(String email2) {
-		this.email2 = email2;
+	public void setDeleteInd(String deleteInd) {
+		this.deleteInd = deleteInd;
 	}
 
-	public Date getEndDate() {
-		return this.endDate;
+	public String getDeleteReason() {
+		return this.deleteReason;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setDeleteReason(String deleteReason) {
+		this.deleteReason = deleteReason;
 	}
 
-
-	public int getParentId() {
-		return this.parentId;
+	public String getSchoolCode() {
+		return this.schoolCode;
 	}
 
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
+	public void setSchoolCode(String schoolCode) {
+		this.schoolCode = schoolCode;
 	}
 
-	public String getPhone1() {
-		return this.phone1;
+	public String getSchoolGroupName() {
+		return this.schoolGroupName;
 	}
 
-	public void setPhone1(String phone1) {
-		this.phone1 = phone1;
+	public void setSchoolGroupName(String schoolGroupName) {
+		this.schoolGroupName = schoolGroupName;
 	}
 
-	public String getPhone2() {
-		return this.phone2;
+	public String getSchoolName() {
+		return this.schoolName;
 	}
 
-	public void setPhone2(String phone2) {
-		this.phone2 = phone2;
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
 	}
 
-	public String getRemarks() {
-		return this.remarks;
+	public int getSchoolParentId() {
+		return this.schoolParentId;
 	}
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setSchoolParentId(int schoolParentId) {
+		this.schoolParentId = schoolParentId;
 	}
 
-	public Date getStartDate() {
-		return this.startDate;
+	public String getSmsSenderId() {
+		return this.smsSenderId;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setSmsSenderId(String smsSenderId) {
+		this.smsSenderId = smsSenderId;
 	}
 
 	public Timestamp getUpdateDate() {
@@ -243,146 +201,26 @@ public class SchoolMaster implements Serializable {
 		this.updateUser = updateUser;
 	}
 
-	/*
-	 * public List<SchoolAddress> getSchoolAddresses() { if(this.schoolAddresses ==
-	 * null) { schoolAddresses = new ArrayList<SchoolAddress>(); } return
-	 * this.schoolAddresses; }
-	 * 
-	 * public void setSchoolAddresses(List<SchoolAddress> schoolAddresses) {
-	 * this.schoolAddresses = schoolAddresses; }
-	 */
-
-
-
-	/*
-	 * public List<User> getUsers() { return this.users; }
-	 * 
-	 * public void setUsers(List<User> users) { this.users = users; }
-	 */
-
-	public String getContextRoot() {
-		return contextRoot;
+	public List<Address> getAddresses() {
+		return this.addresses;
 	}
 
-	public void setContextRoot(String contextRoot) {
-		this.contextRoot = contextRoot;
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 
-	public String getDbName() {
-		return dbName;
+	public Address addAddress(Address address) {
+		getAddresses().add(address);
+		address.setSchoolMaster(this);
+
+		return address;
 	}
 
-	public void setDbName(String dbName) {
-		this.dbName = dbName;
-	}
-	
-	/*
-	 * public List<SchoolLicenseDtl> getSchoolLicenseDtls() { return
-	 * this.schoolLicenseDtls; }
-	 * 
-	 * public void setSchoolLicenseDtls(List<SchoolLicenseDtl> schoolLicenseDtls) {
-	 * this.schoolLicenseDtls = schoolLicenseDtls; }
-	 */
+	public Address removeAddress(Address address) {
+		getAddresses().remove(address);
+		address.setSchoolMaster(null);
 
-	public int getSchoolId() {
-		return schoolId;
+		return address;
 	}
 
-	public void setSchoolId(int schoolId) {
-		this.schoolId = schoolId;
-	}
-
-	public String getSchoolName() {
-		return schoolName;
-	}
-
-	public void setSchoolName(String schoolName) {
-		this.schoolName = schoolName;
-	}
-
-	public String getSchoolCode() {
-		return schoolCode;
-	}
-
-	public void setSchoolCode(String schoolCode) {
-		this.schoolCode = schoolCode;
-	}
-
-	/*
-	 * public SchoolLicenseDtl addSchoolLicenseDtl(SchoolLicenseDtl
-	 * schoolLicenseDtl) { getSchoolLicenseDtls().add(schoolLicenseDtl);
-	 * schoolLicenseDtl.setSchoolMaster(this);
-	 * 
-	 * return schoolLicenseDtl; }
-	 * 
-	 * public SchoolLicenseDtl removeSchoolLicenseDtl(SchoolLicenseDtl
-	 * schoolLicenseDtl) { getSchoolLicenseDtls().remove(schoolLicenseDtl);
-	 * schoolLicenseDtl.setSchoolMaster(null);
-	 * 
-	 * return schoolLicenseDtl; }
-	 */
-	@PreUpdate
-	@PrePersist
-	public void updateTimeStamps() {
-	    updateDate = new Timestamp(System.currentTimeMillis());
-	    if (createDate == null) {
-	    	createDate = new Timestamp(System.currentTimeMillis());
-	    }
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + schoolId;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SchoolMaster other = (SchoolMaster) obj;
-		if (schoolId != other.schoolId)
-			return false;
-		return true;
-	}
-
-	public String getDeleteReason() {
-		return deleteReason;
-	}
-
-	public void setDeleteReason(String deleteReason) {
-		this.deleteReason = deleteReason;
-	}
-
-	public String getGmailId() {
-		return gmailId;
-	}
-
-	public void setGmailId(String gmailId) {
-		this.gmailId = gmailId;
-	}
-
-	public String getGmailPassword() {
-		return gmailPassword;
-	}
-
-	public void setGmailPassword(String gmailPassword) {
-		this.gmailPassword = gmailPassword;
-	}
-
-	public String getSmsSenderId() {
-		return smsSenderId;
-	}
-
-	public void setSmsSenderId(String smsSenderId) {
-		this.smsSenderId = smsSenderId;
-	}
-	
-	
 }
