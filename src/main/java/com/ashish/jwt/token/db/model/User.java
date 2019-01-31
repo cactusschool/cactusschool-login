@@ -1,9 +1,21 @@
 package com.ashish.jwt.token.db.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Where;
 
 
 /**
@@ -13,6 +25,7 @@ import java.util.List;
 @Entity
 @Table(name="users")
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Where(clause="delete_ind is NULL or delete_ind='N'")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -20,6 +33,9 @@ public class User implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="user_id", unique=true, nullable=false)
 	private int userId;
+
+	@Column(name="account_locked")
+	private byte accountLocked;
 
 	@Column(name="create_date")
 	private Timestamp createDate;
@@ -32,6 +48,9 @@ public class User implements Serializable {
 
 	@Column(name="delete_reason", length=100)
 	private String deleteReason;
+
+	@Column(name="end_date")
+	private Timestamp endDate;
 
 	@Column(name="first_name", nullable=false, length=50)
 	private String firstName;
@@ -61,11 +80,11 @@ public class User implements Serializable {
 	private String userName;
 
 	//bi-directional many-to-one association to Address
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade={CascadeType.REMOVE,CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
 	private List<Address> addresses;
 
 	//bi-directional many-to-one association to UserRole
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade={CascadeType.REMOVE,CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.EAGER)
 	private List<UserRole> userRoles;
 
 	public User() {
@@ -77,6 +96,14 @@ public class User implements Serializable {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public byte getAccountLocked() {
+		return this.accountLocked;
+	}
+
+	public void setAccountLocked(byte accountLocked) {
+		this.accountLocked = accountLocked;
 	}
 
 	public Timestamp getCreateDate() {
@@ -109,6 +136,14 @@ public class User implements Serializable {
 
 	public void setDeleteReason(String deleteReason) {
 		this.deleteReason = deleteReason;
+	}
+
+	public Timestamp getEndDate() {
+		return this.endDate;
+	}
+
+	public void setEndDate(Timestamp endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getFirstName() {

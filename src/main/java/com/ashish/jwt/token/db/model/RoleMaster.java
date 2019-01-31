@@ -1,7 +1,11 @@
 package com.ashish.jwt.token.db.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import org.hibernate.annotations.Where;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -13,6 +17,7 @@ import java.util.List;
 @Entity
 @Table(name="role_master")
 @NamedQuery(name="RoleMaster.findAll", query="SELECT r FROM RoleMaster r")
+@Where(clause="delete_ind is NULL or delete_ind='N'")
 public class RoleMaster implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -46,11 +51,11 @@ public class RoleMaster implements Serializable {
 	private String updateUser;
 
 	//bi-directional many-to-one association to RoleAccess
-	@OneToMany(mappedBy="roleMaster")
+	@OneToMany(mappedBy="roleMaster", cascade={CascadeType.REMOVE,CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.EAGER)
 	private List<RoleAccess> roleAccesses;
 
 	//bi-directional many-to-one association to UserRole
-	@OneToMany(mappedBy="roleMaster")
+	@OneToMany(mappedBy="roleMaster", cascade={CascadeType.REMOVE,CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
 	private List<UserRole> userRoles;
 
 	public RoleMaster() {

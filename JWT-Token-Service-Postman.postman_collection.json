@@ -11,12 +11,12 @@
 			"name": "OAuth-JWT-ClientCredentials",
 			"request": {
 				"url": {
-					"raw": "http://localhost:8080/oauth/token?grant_type=client_credentials",
+					"raw": "http://localhost:8070/oauth/token?grant_type=client_credentials",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8070",
 					"path": [
 						"oauth",
 						"token"
@@ -112,12 +112,37 @@
 		{
 			"name": "Test-Service",
 			"request": {
-				"url": "http://localhost:8080/users/user/ashish",
+				"url": "http://localhost:8080/users/admin/ashish",
 				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXNoaXNoIl0sInVzZXJfbmFtZSI6ImFzaGlzaCIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NDU3NDk5MDYsImF1dGhvcml0aWVzIjpbIlNUQU5EQVJEX1VTRVIiXSwianRpIjoiNTZkNDNhYzUtM2IxNC00YjhiLTgyZjItYzk1YzQwZDYyNDdmIiwiY2xpZW50X2lkIjoiYXNoaXNoIn0.83v2wcFyRxFc0RnGDpTI0x6kZRUx0L1HS3c6cy-c-hA",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXNoaXNoIl0sInVzZXJfbmFtZSI6InJhamVzaCIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NDg5MjUxNDgsImF1dGhvcml0aWVzIjpbIlJPTEVfUEFSRU5UX1JFQUQiXSwianRpIjoiNDU4MDI4ODAtYjQ4Ni00OWMxLTlkMzgtODdjMjA5NGQ1MmJjIiwiY2xpZW50X2lkIjoiYXNoaXNoIn0.99wr6rK7Uui_SQcoKjvP2b1Eif4CrL0ZrQsJ4yNpzDA",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Test-Service copy",
+			"request": {
+				"url": "http://localhost:8080/users/parent/ashish",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXNoaXNoIl0sInVzZXJfbmFtZSI6InJhamVzaCIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NDg5MjUxNDgsImF1dGhvcml0aWVzIjpbIlJPTEVfUEFSRU5UX1JFQUQiXSwianRpIjoiNDU4MDI4ODAtYjQ4Ni00OWMxLTlkMzgtODdjMjA5NGQ1MmJjIiwiY2xpZW50X2lkIjoiYXNoaXNoIn0.99wr6rK7Uui_SQcoKjvP2b1Eif4CrL0ZrQsJ4yNpzDA",
 						"description": ""
 					},
 					{

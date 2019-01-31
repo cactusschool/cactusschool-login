@@ -22,10 +22,18 @@ public class TestController {
 	private AppUserService appUserService;
 	
 
-	@RequestMapping(value="/user/{username}", method=RequestMethod.GET)
-	//@PreAuthorize("hasAuthority('STANDARD_USER')")
-	public ResponseEntity<User> getMessage(@PathVariable("username") String username) {
-		return new ResponseEntity<> (appUserService.findByUsername(username), HttpStatus.OK);
+	@RequestMapping(value="/admin/{username}", method=RequestMethod.GET)
+//	@PreAuthorize("hasAuthority('ROLE_ADMIN_CREATE')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN_CREATE','ROLE_ADMIN_READ')")
+	public String getMessage(@PathVariable("username") String username) {
+		return username;
+	}
+	
+	@RequestMapping(value="/parent/{username}", method=RequestMethod.GET)
+//	@PreAuthorize("hasAuthority('ROLE_ADMIN_CREATE')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN_CREATE','ROLE_ADMIN_READ','ROLE_PARENT_READ')")
+	public String getParentMessage(@PathVariable("username") String username) {
+		return username;
 	}
 
 }

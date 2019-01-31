@@ -107,9 +107,4 @@ public class OAuth2ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	}
 	
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
 }

@@ -1,7 +1,11 @@
 package com.ashish.jwt.token.db.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import org.hibernate.annotations.Where;
+
 import java.sql.Timestamp;
 
 
@@ -12,6 +16,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name="address")
 @NamedQuery(name="Address.findAll", query="SELECT a FROM Address a")
+@Where(clause="delete_ind is NULL or delete_ind='N'")
 public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 
