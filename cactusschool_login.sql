@@ -147,7 +147,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `create_date` timestamp NULL DEFAULT NULL,
   `update_user` varchar(50) DEFAULT NULL,
   `update_date` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_name` (`user_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table cactusschool_login.users: ~5 rows (approximately)
@@ -179,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   CONSTRAINT `FK__users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table cactusschool_login.user_role: ~1 rows (approximately)
+-- Dumping data for table cactusschool_login.user_role: ~2 rows (approximately)
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
 INSERT INTO `user_role` (`user_role_id`, `user_id`, `role_id`, `delete_ind`, `delete_reason`, `create_user`, `create_date`, `update_user`, `update_date`) VALUES
 	(1, 1, 1, NULL, NULL, 'ashish', '2019-01-31 03:17:33', NULL, NULL),
