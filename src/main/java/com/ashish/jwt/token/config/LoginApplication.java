@@ -1,5 +1,7 @@
 package com.ashish.jwt.token.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -8,10 +10,13 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 // "Using generated security password:" message in the logfile
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class },
 			scanBasePackages={"com.ashish.jwt.token"})
-public class JwtTokenServiceApplication {
+public class LoginApplication {
 
+	private final static Logger logger = LoggerFactory.getLogger(LoginApplication.class);
 	public static void main(String[] args) {
-		SpringApplication.run(JwtTokenServiceApplication.class, args);
+		logger.debug(">>>>>>>>>>>>>Starting Login application>>>>>");
+		SpringApplication.run(LoginApplication.class, args);
+		logger.debug("<<<<<<<<Started Login application<<<<<<<<<<<<<<");
 	}
 
 }
