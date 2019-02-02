@@ -5,4 +5,4 @@ echo $login_process
 kill -9 $login_process
 echo "Running application has been stopped. Starting the application again"
 mvn -DskipTests=true clean package
-java -jar target/login-jwt-1.0.jar &
+java -jar target/cactusschool-login-jwt-1.0.jar &

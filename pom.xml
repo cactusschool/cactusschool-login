@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ashish.jwt.token</groupId>
-	<artifactId>login-jwt</artifactId>
+	<artifactId>cactusschool-login-jwt</artifactId>
 	<version>1.0</version>
 	<name>jwt-token-service</name>
 	<description>Demo project for Spring Boot</description>
