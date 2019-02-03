@@ -35,7 +35,7 @@ public class CactusUser implements Serializable {
 	private int userId;
 
 	@Column(name="account_locked")
-	private byte accountLocked;
+	private String accountLocked;
 
 	@Column(name="create_date")
 	private Timestamp createDate;
@@ -98,11 +98,11 @@ public class CactusUser implements Serializable {
 		this.userId = userId;
 	}
 
-	public byte getAccountLocked() {
+	public String getAccountLocked() {
 		return this.accountLocked;
 	}
 
-	public void setAccountLocked(byte accountLocked) {
+	public void setAccountLocked(String accountLocked) {
 		this.accountLocked = accountLocked;
 	}
 
