@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.ashish.jwt.token.db.model.User;
+import com.ashish.jwt.token.db.model.CactusUser;
 import com.ashish.jwt.token.db.repositories.AppUserRepository;
 
 @Component
@@ -27,7 +27,7 @@ public class AppUserDetailsServices implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDetails userDetails = null;
 		try {
-			User user = userRepo.findByUserName(username);
+			CactusUser user = userRepo.findByUserName(username);
 			
 			if(user == null) {
 				throw new UsernameNotFoundException(String.format("The username %username doesn't exist.", username));
@@ -53,7 +53,7 @@ public class AppUserDetailsServices implements UserDetailsService {
 		return userDetails;
 	}
 	
-	private List<GrantedAuthority> getGrantedAuthorities(User user){
+	private List<GrantedAuthority> getGrantedAuthorities(CactusUser user){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         
         user.getUserRoles().forEach(userrole -> {

@@ -15,9 +15,9 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name="address")
-@NamedQuery(name="Address.findAll", query="SELECT a FROM Address a")
+@NamedQuery(name="CactusAddress.findAll", query="SELECT a FROM CactusAddress a")
 @Where(clause="delete_ind is NULL or delete_ind='N'")
-public class Address implements Serializable {
+public class CactusAddress implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -73,14 +73,14 @@ public class Address implements Serializable {
 	//bi-directional many-to-one association to SchoolMaster
 	@ManyToOne
 	@JoinColumn(name="school_id", nullable=false)
-	private SchoolMaster schoolMaster;
+	private CactusSchoolMaster schoolMaster;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable=false)
-	private User user;
+	private CactusUser user;
 
-	public Address() {
+	public CactusAddress() {
 	}
 
 	public int getAddressId() {
@@ -211,19 +211,19 @@ public class Address implements Serializable {
 		this.updateUser = updateUser;
 	}
 
-	public SchoolMaster getSchoolMaster() {
+	public CactusSchoolMaster getSchoolMaster() {
 		return this.schoolMaster;
 	}
 
-	public void setSchoolMaster(SchoolMaster schoolMaster) {
+	public void setSchoolMaster(CactusSchoolMaster schoolMaster) {
 		this.schoolMaster = schoolMaster;
 	}
 
-	public User getUser() {
+	public CactusUser getUser() {
 		return this.user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(CactusUser user) {
 		this.user = user;
 	}
 

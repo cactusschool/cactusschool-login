@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ashish.jwt.token.db.model.User;
+import com.ashish.jwt.token.db.model.CactusUser;
 import com.ashish.jwt.token.services.AppUserService;
 
 @RestController

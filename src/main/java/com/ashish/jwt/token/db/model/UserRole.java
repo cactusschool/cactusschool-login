@@ -51,7 +51,7 @@ public class UserRole implements Serializable {
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable=false)
-	private User user;
+	private CactusUser user;
 
 	public UserRole() {
 	}
@@ -120,11 +120,11 @@ public class UserRole implements Serializable {
 		this.roleMaster = roleMaster;
 	}
 
-	public User getUser() {
+	public CactusUser getUser() {
 		return this.user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(CactusUser user) {
 		this.user = user;
 	}
 

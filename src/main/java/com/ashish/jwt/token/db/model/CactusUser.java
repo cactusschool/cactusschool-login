@@ -24,9 +24,9 @@ import org.hibernate.annotations.Where;
  */
 @Entity
 @Table(name="users")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQuery(name="CactusUser.findAll", query="SELECT u FROM CactusUser u")
 @Where(clause="delete_ind is NULL or delete_ind='N'")
-public class User implements Serializable {
+public class CactusUser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -81,13 +81,13 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Address
 	@OneToMany(mappedBy="user", cascade={CascadeType.REMOVE,CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
-	private List<Address> addresses;
+	private List<CactusAddress> addresses;
 
 	//bi-directional many-to-one association to UserRole
 	@OneToMany(mappedBy="user", cascade={CascadeType.REMOVE,CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.EAGER)
 	private List<UserRole> userRoles;
 
-	public User() {
+	public CactusUser() {
 	}
 
 	public int getUserId() {
@@ -218,22 +218,22 @@ public class User implements Serializable {
 		this.userName = userName;
 	}
 
-	public List<Address> getAddresses() {
+	public List<CactusAddress> getAddresses() {
 		return this.addresses;
 	}
 
-	public void setAddresses(List<Address> addresses) {
+	public void setAddresses(List<CactusAddress> addresses) {
 		this.addresses = addresses;
 	}
 
-	public Address addAddress(Address address) {
+	public CactusAddress addAddress(CactusAddress address) {
 		getAddresses().add(address);
 		address.setUser(this);
 
 		return address;
 	}
 
-	public Address removeAddress(Address address) {
+	public CactusAddress removeAddress(CactusAddress address) {
 		getAddresses().remove(address);
 		address.setUser(null);
 
