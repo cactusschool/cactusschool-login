@@ -25,7 +25,7 @@ import org.hibernate.annotations.Where;
 @Entity
 @Table(name="users")
 @NamedQuery(name="CactusUser.findAll", query="SELECT u FROM CactusUser u")
-@Where(clause="delete_ind is NULL or delete_ind='N'")
+@Where(clause="(delete_ind is NULL or delete_ind='N') and (user_approved_ind='Y')")
 public class CactusUser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -79,6 +79,12 @@ public class CactusUser implements Serializable {
 	@Column(name="user_name", nullable=false, length=50)
 	private String userName;
 
+	@Column(name="user_approval_comment", length=100)
+	private String userApprovalComment;
+
+	@Column(name="user_approved_ind", length=2)
+	private String userApprovedInd;
+	
 	//bi-directional many-to-one association to Address
 	@OneToMany(mappedBy="user", cascade={CascadeType.REMOVE,CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
 	private List<CactusAddress> addresses;
@@ -260,6 +266,22 @@ public class CactusUser implements Serializable {
 		userRole.setUser(null);
 
 		return userRole;
+	}
+	
+	public String getUserApprovalComment() {
+		return this.userApprovalComment;
+	}
+
+	public void setUserApprovalComment(String userApprovalComment) {
+		this.userApprovalComment = userApprovalComment;
+	}
+
+	public String getUserApprovedInd() {
+		return this.userApprovedInd;
+	}
+
+	public void setUserApprovedInd(String userApprovedInd) {
+		this.userApprovedInd = userApprovedInd;
 	}
 
 }
