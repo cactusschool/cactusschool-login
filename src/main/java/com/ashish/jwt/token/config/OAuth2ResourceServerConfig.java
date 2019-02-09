@@ -3,6 +3,7 @@ package com.ashish.jwt.token.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -31,7 +32,7 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
 			.requestMatchers()
 			.and()
 			.authorizeRequests()
-			.antMatchers("/get/**", "/swagger-ui.html/**", "/v2/api-docs/**", "/console/**").permitAll()
+			.antMatchers(HttpMethod.OPTIONS, "/get/**", "/swagger-ui.html/**", "/v2/api-docs/**", "/console/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.csrf().disable()
