@@ -1,9 +1,8 @@
 package com.ashish.jwt.token.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
-import net.bytebuddy.asm.Advice.This;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,7 +32,7 @@ public class AppUserDetailsServices implements UserDetailsService {
 				throw new UsernameNotFoundException(String.format("The username %username doesn't exist.", username));
 			}
 			
-			boolean isUserActive = (user.getEndDate() == null) ? true : false;
+			boolean isUserActive = (user.getEndDate() == null || user.getEndDate().after(new Date()) || user.getEndDate().equals(new Date())) ? true : false;
 			
 			/*List<GrantedAuthority> authorities = new ArrayList<>();
 			user.getUserRoles().forEach(userrole -> {
