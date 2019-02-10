@@ -12,8 +12,6 @@ import org.springframework.context.annotation.Configuration;
 public class LoggingAspect {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-//	@Around("execution(* com.ashish.poc.services..*(..)) || "
-//			+ "execution(* com.ashish.poc.ws..*(..))")
 	@Around("execution(* com.ashish.jwt.token.services.*.*(..)) || "
 			+ "execution(* com.ashish.jwt.token.controller.*.*(..)))")
 	public Object logAround(ProceedingJoinPoint pjp) throws Throwable {
